@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bono 50% - GoldenLuck</title>
   <meta name="description" content="Reclamá tu bono de bienvenida 50%. Atención personalizada por WhatsApp.">
-
   <style>
     body {
       margin: 0;
@@ -67,17 +66,17 @@
     t.src=v;s=b.getElementsByTagName(e)[0];
     s.parentNode.insertBefore(t,s)}(window, document,'script',
     'https://connect.facebook.net/en_US/fbevents.js');
-
     fbq('init', '887455550280201');
     fbq('track', 'PageView');
   </script>
 </head>
-
 <body>
 
 <div class="hero">
   <a href="#" onclick="confirmarWhatsApp(event)">
-    <img src="imagen.png" alt="Promo GoldenLuck">
+    <img 
+      src="imagen.png" 
+      alt="Promo GoldenLuck">
   </a>
 </div>
 
@@ -90,7 +89,8 @@ function confirmarWhatsApp(event) {
   event.preventDefault();
 
   if (confirm('¿Querés abrir WhatsApp para reclamar tu bono del 50%?')) {
-
+    
+    // Crear popup para ingresar nombre
     let popup = document.createElement("div");
     popup.style.position = "fixed";
     popup.style.top = "0";
@@ -119,7 +119,7 @@ function confirmarWhatsApp(event) {
           type="text" 
           placeholder="Tu nombre"
           style="
-            width: 100%;
+            width: 50%;
             padding: 12px;
             border-radius: 10px;
             border: 1px solid #ccc;
@@ -129,7 +129,7 @@ function confirmarWhatsApp(event) {
         <br><br>
         <button id="enviarWA" style="
           padding: 12px;
-          width: 100%;
+          width: 50%;
           background: #25D366;
           color: #fff;
           border: none;
@@ -145,23 +145,21 @@ function confirmarWhatsApp(event) {
 
     document.body.appendChild(popup);
 
+    // Acción del botón
     document.getElementById("enviarWA").onclick = function () {
       let nombre = document.getElementById("nombreCliente").value.trim();
-
+      
       if (nombre === "") {
         alert("Por favor ingresá tu nombre.");
         return;
       }
 
-      // ✅ Evento estándar para Meta (clave)
-      fbq('track', 'Lead');
+      fbq('trackCustom', 'WhatsAppNombreConfirmado');
 
-      // ✅ Delay para asegurar que el evento se envíe
-      setTimeout(function() {
-        let mensaje = `Hola soy ${nombre}, quiero reclamar mi bono del 50%.`;
-        let url = "https://wa.me/5492236350229?text=" + encodeURIComponent(mensaje);
-        window.location.href = url;
-      }, 600);
+      let mensaje = `Hola soy ${nombre}, quiero reclamar mi bono del 50%.`;
+      let url = "https://wa.me/5492236350229?text=" + encodeURIComponent(mensaje);
+
+      window.location.href = url;
     };
   }
 }
@@ -169,3 +167,4 @@ function confirmarWhatsApp(event) {
 
 </body>
 </html>
+  
